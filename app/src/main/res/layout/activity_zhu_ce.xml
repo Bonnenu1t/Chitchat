@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bwie.chitchat.activitys.RegisterActivity">
+
+    <include
+        layout="@layout/select_shou_ye"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="26dp"
+        android:text="@string/shuRu"
+        android:textSize="22sp"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/baoHu"
+        android:gravity="center"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/zhu_ce_phone"
+            android:layout_marginTop="@dimen/height20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/phones"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="11"
+            android:theme="@style/MyEditText" />
+
+        <Button
+            android:id="@+id/zhu_ce_delete"
+            android:background="@drawable/dialog_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            android:layout_alignRight="@+id/zhu_ce_phone"
+            android:layout_alignEnd="@+id/zhu_ce_phone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/zhu_ce_pws"
+            android:inputType="number"
+            android:maxLength="4"
+            android:imeOptions="actionDone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/yanZhengMa"
+            android:theme="@style/MyEditText"
+            />
+        <Button
+            android:id="@+id/zhu_ce_numble"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/huoQu"
+            android:textColor="@color/write"
+            android:background="@drawable/zhu_ce_huo_qu"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/zhu_ce_pws"
+            android:layout_alignEnd="@+id/zhu_ce_pws"
+            android:layout_marginEnd="16dp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/zhu_ce_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="@string/register"
+        android:textColor="@color/write"
+        android:background="@drawable/radio_btn"/>
+    />
+</LinearLayout>

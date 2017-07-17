@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/main_bg_color"
+    android:layout_margin="@dimen/height10"
+    android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/example_gril_photo_three"
+            android:id="@+id/indexfragment_stagger"/>
+
+        <TextView
+            android:id="@+id/indexfragment_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/height10"
+            android:background="@drawable/bg_gradient"
+            android:gravity="center"
+            android:text="雨松"
+            android:textColor="@color/tab_selected_textcolor"
+            android:textSize="@dimen/height20" />
+
+</FrameLayout>

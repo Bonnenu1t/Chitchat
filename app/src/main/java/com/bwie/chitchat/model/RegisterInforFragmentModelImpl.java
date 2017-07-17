@@ -1,0 +1,72 @@
+package com.bwie.chitchat.model;
+
+
+import com.bwie.chitchat.base.IApplication;
+import com.bwie.chitchat.bean.RegisterBean;
+import com.bwie.chitchat.core.JNICore;
+import com.bwie.chitchat.core.SortUtils;
+import com.bwie.chitchat.network.BaseObserver;
+import com.bwie.chitchat.network.RetrofitManager;
+import com.bwie.chitchat.utils.Constants;
+import com.bwie.chitchat.utils.PreferencesUtils;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class RegisterInforFragmentModelImpl implements RegisterInforFragmentModel {
+
+
+
+
+    public void getData(String phone,String nickname,String sex,String age,String area,String introduce,String password,final RegisterInforFragmentDataListener listener){
+
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("user.phone",phone);
+        map.put("user.nickname",nickname);
+        map.put("user.password",password);
+        map.put("user.gender",sex);
+        map.put("user.area",area);
+        map.put("user.age",age);
+        map.put("user.introduce",introduce);
+        System.out.println("SortUtils.getMapResult(SortUtils.sortString(map)) = " + SortUtils.getMapResult(SortUtils.sortString(map)));
+
+       String sign =  JNICore.getSign(SortUtils.getMapResult(SortUtils.sortString(map))) ;
+        map.put("user.sign",sign);
+
+//        System.out.println("sign = " + sign);
+
+        RetrofitManager.post(Constants.REGISTER_ACTION, map, new BaseObserver() {
+            @Override
+            public void onSuccess(String result) {
+
+
+                Gson gson = new Gson();
+                RegisterBean registerBean = gson.fromJson(result, RegisterBean.class);
+
+                if(registerBean.getResult_code() == 200){
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"phone",registerBean.getData().getPhone());
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"password",registerBean.getData().getPassword());
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"yxpassword",registerBean.getData().getYxpassword());
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"uid",registerBean.getData().getUserId());
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"nickname",registerBean.getData().getNickname());
+                }
+                listener.onSuccess(registerBean);
+
+            }
+
+            @Override
+            public void onFailed(int code) {
+                listener.onFailed(code);
+            }
+        });
+
+
+
+
+    }
+
+
+
+}

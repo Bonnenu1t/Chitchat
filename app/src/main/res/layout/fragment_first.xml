@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/ab"
+    android:layout_height="match_parent">
+    <include layout="@layout/select_shou_ye"/>
+<com.liaoinstan.springview.widget.SpringView
+    android:id="@+id/springview_indexfragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/first_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</com.liaoinstan.springview.widget.SpringView>
+</LinearLayout>
