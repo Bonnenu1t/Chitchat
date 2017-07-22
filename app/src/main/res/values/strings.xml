@@ -26,6 +26,9 @@
     <string name="save">保存</string>
     <string name="geXing">自我描述</string>
     <string name="daZhaoHu">❤打招呼</string>
+    <string name="send">发送❤消息</string>
+    <string name="sendText">发送</string>
+    <string name="skeap">按住 说话</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

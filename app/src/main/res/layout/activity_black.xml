@@ -109,5 +109,17 @@
         android:text="@string/daZhaoHu"
         android:textColor="@color/write"
         android:textSize="20sp"
+
+        android:background="@drawable/custom_button" />
+    <Button
+        android:id="@+id/black_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/height20"
+        android:text="@string/send"
+        android:textColor="@color/write"
+        android:textSize="20sp"
+        android:visibility="gone"
         android:background="@drawable/custom_button" />
 </RelativeLayout>

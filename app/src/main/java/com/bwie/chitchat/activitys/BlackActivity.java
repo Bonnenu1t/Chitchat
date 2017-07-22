@@ -66,9 +66,10 @@ public class BlackActivity extends IActivity {
     TextView blackAge;
     @BindView(R.id.black_start)
     Button blackStart;
+    @BindView(R.id.black_end)
+    Button blackEnd;
     private String ok;
     private int userid;
-
 
 
     private HorizontalScrollViewAdapter mAdapter;
@@ -100,9 +101,9 @@ public class BlackActivity extends IActivity {
 
         ok = sp.getString("sure", "");
         Intent intent = getIntent();
-        uid = intent.getIntExtra("uid",0);
+        uid = intent.getIntExtra("uid", 0);
         getData(String.valueOf(uid));
-      //  userid = intent.getIntExtra("userid", 1);
+        //  userid = intent.getIntExtra("userid", 1);
 
         for (int i = 0; i < 21; i++) {
             //一定要记住吧数组里的[i]加上
@@ -164,9 +165,9 @@ public class BlackActivity extends IActivity {
 
     @OnClick(R.id.black_start)
     public void onViewClicked() {
-
         getTianjia(uid);
     }
+
     //打招呼添加好友
     public void getTianjia(final int userid) {
 
@@ -202,8 +203,8 @@ public class BlackActivity extends IActivity {
 
                             Toast.makeText(BlackActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
 
-                            blackStart.setText("发送消息");
-
+                            blackStart.setVisibility(View.GONE);
+                            blackEnd.setVisibility(View.VISIBLE);
 
                         }
 
@@ -233,6 +234,7 @@ public class BlackActivity extends IActivity {
         }
 
     }
+
     public void getData(String userid) {
         Map map = new HashMap<String, String>();
         map.put("user.userId", userid);
@@ -251,8 +253,8 @@ public class BlackActivity extends IActivity {
                 blackName.setText(data.getNickname());
 
                 //自定义随机数
-                Random random=new Random();
-                int num = (int) (Math.random()*12+18);//产生70-120的随机数
+                Random random = new Random();
+                int num = (int) (Math.random() * 12 + 18);//产生70-120的随机数
 
                 blackAge.setText(num + "岁");
                 blackSex.setText(data.getGender());
@@ -268,6 +270,14 @@ public class BlackActivity extends IActivity {
                 MyToast.makeText(BlackActivity.this, "请求失败", Toast.LENGTH_SHORT);
             }
         });
+    }
+
+    @OnClick(R.id.black_end)
+    public void onViewClied() {
+        Intent intent = new Intent(BlackActivity.this,ChatMeActivity.class);
+        intent.putExtra("uid",uid);
+        startActivity(intent);
+
     }
 }
 

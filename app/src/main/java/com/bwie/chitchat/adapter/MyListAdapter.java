@@ -14,13 +14,7 @@ import com.bwie.chitchat.bean.DataBean;
 import java.util.List;
 
 
-/**
- * date: 2017/7/14
- * author:陈茹
- * 类的用途:
- */
-
-public class Mylistadapter extends BaseAdapter {
+public class MyListAdapter extends BaseAdapter {
 
     private Context context;
     private List<DataBean> data1;
@@ -30,7 +24,7 @@ public class Mylistadapter extends BaseAdapter {
     private TextView indexfragment_des;
 
 
-    public Mylistadapter (Context context,List<DataBean> data1){
+    public MyListAdapter(Context context, List<DataBean> data1){
         this.context=context;
         this.data1=data1;
 
@@ -38,7 +32,7 @@ public class Mylistadapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return data1.size();
+        return data1 == null ? 0 : data1.size();
     }
 
     @Override

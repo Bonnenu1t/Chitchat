@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bwie.chitchat.R;
 import com.bwie.chitchat.base.IActivity;
+import com.bwie.chitchat.base.IApplication;
 import com.bwie.chitchat.bean.RegisterBean;
 import com.bwie.chitchat.cipher.Md5Utils;
 import com.bwie.chitchat.cipher.aes.JNCryptorUtils;
@@ -22,7 +23,9 @@ import com.bwie.chitchat.core.SortUtils;
 import com.bwie.chitchat.network.BaseObserver;
 import com.bwie.chitchat.network.RetrofitManager;
 import com.bwie.chitchat.utils.Constants;
+import com.bwie.chitchat.utils.PreferencesUtils;
 import com.bwie.chitchat.widget.MyToast;
+import com.bwie.chitchat.widget.keyboard.KeyBoardHelper;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -34,7 +37,7 @@ import butterknife.OnClick;
 
 import static com.bwie.chitchat.R.id.select_login;
 
-public class LoginActivity extends IActivity {
+public class LoginActivity extends IActivity implements KeyBoardHelper.OnKeyBoardStatusChangeListener {
 
     @BindView(R.id.select_image)
     ImageView selectImage;
@@ -69,6 +72,12 @@ public class LoginActivity extends IActivity {
         edit = sp.edit();
 
         edit.clear();
+
+
+
+        KeyBoardHelper keyBoardHelper = new KeyBoardHelper(this) ;
+        keyBoardHelper.onCreate();
+        keyBoardHelper.setOnKeyBoardStatusChangeListener(this);
 
         //随机数 rsa 公钥进行加密
 //  aes 加密  拿着加密后的
@@ -142,9 +151,23 @@ public class LoginActivity extends IActivity {
                         return;
                     }
                     MyToast.makeText(LoginActivity.this,"账号或密码错误", Toast.LENGTH_SHORT);
+                    return;
                 }
-                if (result_code==200){
+                if (registerBean.getResult_code()==200 && registerBean.getData()!=null){
+
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"phone",registerBean.getData().getPhone());
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"password",registerBean.getData().getPassword());
+                    System.out.println("registerBean.getData().getPassword() = " + registerBean.getData().getPassword());
+                    //这两个字段 用来登录环信
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"yxpassword",registerBean.getData().getYxpassword());
+                    System.out.println("registerBean.getData().getYxpassword() = " + registerBean.getData().getYxpassword());
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"uid",registerBean.getData().getUserId());
+                    PreferencesUtils.addConfigInfo(IApplication.getApplication(),"nickname",registerBean.getData().getNickname());
+                    IApplication.getApplication().emLogin();
+
+
                     MyToast.makeText(LoginActivity.this,"登录成功", Toast.LENGTH_SHORT);
+
                     edit.putString("sure","1");
 
                     edit.commit();
@@ -164,4 +187,13 @@ public class LoginActivity extends IActivity {
     }
 
 
+    @Override
+    public void OnKeyBoardPop(int keyBoardheight) {
+        PreferencesUtils.addConfigInfo(this,"kh",keyBoardheight);
+    }
+
+    @Override
+    public void OnKeyBoardClose(int oldKeyBoardheight) {
+
+    }
 }
