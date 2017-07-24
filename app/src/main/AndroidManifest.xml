@@ -107,12 +107,13 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <activity android:name=".activitys.BlackActivity" />
-        <activity android:name=".activitys.ChatActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
-        <activity android:name=".activitys.ChatMeActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
-             >
-        </activity>
+        <activity
+            android:name=".activitys.ChatActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".activitys.ChatMeActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+        <activity android:name=".activitys.VideoActivity"></activity>
     </application>
 
 </manifest>

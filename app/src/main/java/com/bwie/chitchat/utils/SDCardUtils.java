@@ -10,7 +10,7 @@ import java.io.IOException;
 public class SDCardUtils {
 
 
-	public static final String DLIAO = "dliao" ;
+	public static final String DLIAO = "chitchat" ;
 
 	public static File photoCacheDir = SDCardUtils.createCacheDir(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + DLIAO);
 	public static String cacheFileName = "myphototemp.jpg";

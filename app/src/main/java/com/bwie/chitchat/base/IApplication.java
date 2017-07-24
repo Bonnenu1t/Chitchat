@@ -3,13 +3,17 @@ package com.bwie.chitchat.base;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.bwie.chitchat.R;
 import com.bwie.chitchat.db.DaoMaster;
 import com.bwie.chitchat.db.DaoSession;
 import com.bwie.chitchat.utils.AMapUtils;
 import com.bwie.chitchat.utils.PreferencesUtils;
+import com.getkeepsafe.relinker.ReLinker;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -44,6 +48,8 @@ public class IApplication extends MobApplication {
         aMap();
         initGreendao();
 
+        initReLinker();
+
         int pid = android.os.Process.myPid();
         String processAppName = getAppName(pid);
 // 如果APP启用了远程的service，此application:onCreate会被调用2次
@@ -57,6 +63,22 @@ public class IApplication extends MobApplication {
         }
         initEM();
 
+
+
+    }
+
+    private void initReLinker() {
+        ReLinker.loadLibrary(this, "speex", new ReLinker.LoadListener() {
+            @Override
+            public void success() {
+                System.out.println("播放成功oooooooooooooooooo" );
+            }
+
+            @Override
+            public void failure(Throwable t) {
+                System.out.println("播放失败oooooooooooooooooo" );
+            }
+        });
     }
 
     @Override
@@ -165,6 +187,32 @@ public class IApplication extends MobApplication {
             public void onProgress(int i, String s) {
                 System.out.println("password onProgress = " + i);
 
+            }
+        });
+    }
+
+
+    public static void ring(){
+        SoundPool soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC,0);
+
+        soundPool.load(application, R.raw.avchat_ring,1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                soundPool.play(sampleId,1, 1, 0, 0, 1);
+            }
+        });
+
+    }
+
+    public static void callTo(){
+        SoundPool soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC,0);
+
+        soundPool.load(application, R.raw.avchat_connecting,1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                soundPool.play(sampleId,1, 1, 0, 0, 1);
             }
         });
 
